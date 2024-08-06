@@ -102,7 +102,7 @@ namespace MyBeloved.API.Services.AccountsServices
             return response;
         }
 
-        public async Task<Response<Account>> UpdateAccountByIdAsync(Account editedAccount)
+        public async Task<Response<Account>> UpdateAccountByIdAsync(AccountEditDTO editedAccount)
         {
             Response<Account> response = new Response<Account>();
 
@@ -110,13 +110,18 @@ namespace MyBeloved.API.Services.AccountsServices
             {
                 Account account = _context.Accounts.AsNoTracking().FirstOrDefault(a => a.Id == editedAccount.Id);
                 
-                response = _validation.CheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (editedAccount == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 
-                _context.Accounts.Update(editedAccount);
+                account.NickName = editedAccount.NickName;
+                account.Email = editedAccount.Email;
+                account.UpdatedAt = DateTime.UtcNow;
+
+                _context.Accounts.Update(account);
                 await _context.SaveChangesAsync();
 
                 response.Data = _context.Accounts.FirstOrDefault(a => a.Id == editedAccount.Id);

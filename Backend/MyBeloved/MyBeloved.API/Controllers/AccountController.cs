@@ -17,7 +17,7 @@ namespace MyBeloved.API.Controllers
             _accountService = accountService;
         }
 
-        [HttpPut("CreateAccount")]
+        [HttpPost("CreateAccount")]
         public async Task<ActionResult<Response<Account>>> CreateAccount(AccountDTO newAccount)
         {
             return Ok(await _accountService.CreateAccountAsync(newAccount));
@@ -39,6 +39,12 @@ namespace MyBeloved.API.Controllers
         public async Task<ActionResult<Response<List<Account>>>> DeleteAccountById(int id)
         {
             return Ok(await _accountService.DeleteAccountByIdAsync(id));
+        }
+
+        [HttpPut("UpdateAccount")]
+        public async Task<ActionResult<Response<Account>>> UpdateAccountById(AccountEditDTO editedAccount)
+        {
+            return Ok(await _accountService.UpdateAccountByIdAsync(editedAccount));
         }
     }
 }
