@@ -1,4 +1,4 @@
-﻿using MyBeloved.API.DTOs;
+﻿using MyBeloved.API.DTOs.Account;
 using MyBeloved.API.Models;
 
 namespace MyBeloved.API.Services.AccountsServices
@@ -10,5 +10,6 @@ namespace MyBeloved.API.Services.AccountsServices
         Task<Response<Account>> UpdateAccountByIdAsync(AccountEditDTO editedAccount);
         Task<Response<List<Account>>> DeleteAccountByIdAsync(int id);
         Task<Response<List<Account>>> GetAllAccountsAsync();
+        Task<Response<Account>> GenerateNewPartnerLinkById(int id);
     }
 }

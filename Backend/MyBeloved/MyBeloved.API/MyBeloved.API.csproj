@@ -20,11 +20,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\CategoriesServices\" />
-    <Folder Include="Services\PartnerServices\" />
-    <Folder Include="Services\PagesServices\" />
-    <Folder Include="Services\NotebooksServices\" />
-  </ItemGroup>
-
 </Project>

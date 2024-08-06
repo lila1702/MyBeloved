@@ -1,4 +1,4 @@
-﻿namespace MyBeloved.API.DTOs
+﻿namespace MyBeloved.API.DTOs.Account
 {
     public class AccountDTO
     {

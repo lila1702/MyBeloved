@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBeloved.API.DataContext;
-using MyBeloved.API.DTOs;
+using MyBeloved.API.DTOs.Account;
 using MyBeloved.API.Models;
 using MyBeloved.API.Validation;
 
@@ -147,6 +147,37 @@ namespace MyBeloved.API.Services.AccountsServices
                 {
                     response.Message = "No accounts found";
                 }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Success = false;
+            }
+
+            return response;
+        }
+
+        public async Task<Response<Account>> GenerateNewPartnerLinkById(int id)
+        {
+            Response<Account> response = new Response<Account>();
+
+            try
+            {
+                Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+
+                response = _validation.CheckIfNullOrEmpty(account);
+                if (!response.Success)
+                {
+                    return response;
+                }
+
+                account.InvitePartnerLink = Guid.NewGuid();
+                account.UpdatedAt = DateTime.UtcNow;
+                _context.Accounts.Update(account);
+                await _context.SaveChangesAsync();
+
+                response.Data = account;
+
             }
             catch (Exception ex)
             {

@@ -6,4 +6,5 @@ public class Notebook
     public Account MadeBy { get; set; }
 
     public ICollection<Category> Category { get; set; } = new List<Category>();
+    public ICollection<Page>? Pages { get; set; } = new List<Page>();
 }

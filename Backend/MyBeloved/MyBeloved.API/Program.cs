@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using MyBeloved.API.DataContext;
 using MyBeloved.API.Services.AccountsServices;
+using MyBeloved.API.Services.CategoriesServices;
+using MyBeloved.API.Services.NotebooksServices;
+using MyBeloved.API.Services.PagesServices;
+using MyBeloved.API.Services.PartnerServices;
 
 namespace MyBeloved.API
 {
@@ -21,6 +25,10 @@ namespace MyBeloved.API
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<INotebookService, NotebookService>();
+            builder.Services.AddScoped<IPageService, PageService>();
+            builder.Services.AddScoped<IPartnerService, PartnerService>();
 
             var app = builder.Build();
 

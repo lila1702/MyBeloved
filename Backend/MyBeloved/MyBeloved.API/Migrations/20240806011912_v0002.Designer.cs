@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBeloved.API.DataContext;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBeloved.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240806011912_v0002")]
+    partial class v0002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace MyBeloved.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryNotebook", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NotebooksId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CategoryId", "NotebooksId");
-
-                    b.HasIndex("NotebooksId");
-
-                    b.ToTable("CategoryNotebook");
-                });
 
             modelBuilder.Entity("MyBeloved.API.Models.Account", b =>
                 {
@@ -78,11 +66,16 @@ namespace MyBeloved.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<int?>("NotebookId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NotebookId");
 
                     b.ToTable("Categories");
                 });
@@ -160,19 +153,11 @@ namespace MyBeloved.API.Migrations
                     b.ToTable("Partners");
                 });
 
-            modelBuilder.Entity("CategoryNotebook", b =>
+            modelBuilder.Entity("MyBeloved.API.Models.Category", b =>
                 {
-                    b.HasOne("MyBeloved.API.Models.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyBeloved.API.Models.Notebook", null)
-                        .WithMany()
-                        .HasForeignKey("NotebooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Category")
+                        .HasForeignKey("NotebookId");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Notebook", b =>
@@ -195,7 +180,7 @@ namespace MyBeloved.API.Migrations
                         .IsRequired();
 
                     b.HasOne("MyBeloved.API.Models.Notebook", "Notebook")
-                        .WithMany("Pages")
+                        .WithMany()
                         .HasForeignKey("NotebookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -216,7 +201,7 @@ namespace MyBeloved.API.Migrations
 
             modelBuilder.Entity("MyBeloved.API.Models.Notebook", b =>
                 {
-                    b.Navigation("Pages");
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyBeloved.API.DataContext;
-using MyBeloved.API.DTOs;
+using MyBeloved.API.DTOs.Account;
 using MyBeloved.API.Models;
 using MyBeloved.API.Services.AccountsServices;
 
@@ -23,28 +22,34 @@ namespace MyBeloved.API.Controllers
             return Ok(await _accountService.CreateAccountAsync(newAccount));
         }
 
-        [HttpGet("GetAccount")]
+        [HttpGet("GetAccount/{id}")]
         public async Task<ActionResult<Response<Account>>> GetAccountById(int id)
         {
             return Ok(await _accountService.GetAccountByIdAsync(id));
         }
 
-        [HttpGet("GetAllAccounts")]
+        [HttpGet("GetAccounts")]
         public async Task<ActionResult<Response<List<Account>>>> GetAllAccounts()
         {
             return Ok(await _accountService.GetAllAccountsAsync());
         }
 
-        [HttpDelete("DeleteAccount")]
+        [HttpDelete("DeleteAccount/{id}")]
         public async Task<ActionResult<Response<List<Account>>>> DeleteAccountById(int id)
         {
             return Ok(await _accountService.DeleteAccountByIdAsync(id));
         }
 
-        [HttpPut("UpdateAccount")]
+        [HttpPut("UpdateAccount/{id}")]
         public async Task<ActionResult<Response<Account>>> UpdateAccountById(AccountEditDTO editedAccount)
         {
             return Ok(await _accountService.UpdateAccountByIdAsync(editedAccount));
+        }
+
+        [HttpPatch("GenerateNewInviteLink/{id}")]
+        public async Task<ActionResult<Response<Account>>> GenerateNewInviteLink(int id)
+        {
+            return Ok(await _accountService.GenerateNewPartnerLinkById(id));
         }
     }
 }
