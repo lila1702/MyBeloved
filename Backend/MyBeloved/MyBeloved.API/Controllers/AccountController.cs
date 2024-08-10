@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyBeloved.API.DTOs.Account;
+using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
 using MyBeloved.API.Services.AccountsServices;
 
@@ -17,9 +17,9 @@ namespace MyBeloved.API.Controllers
         }
 
         [HttpPost("CreateAccount")]
-        public async Task<ActionResult<Response<Account>>> CreateAccount(AccountDTO newAccount)
+        public async Task<ActionResult<Response<Account>>> CreateAccount(string nickname, string email)
         {
-            return Ok(await _accountService.CreateAccountAsync(newAccount));
+            return Ok(await _accountService.CreateAccountAsync(nickname, email));
         }
 
         [HttpGet("GetAccount/{id}")]
@@ -41,7 +41,7 @@ namespace MyBeloved.API.Controllers
         }
 
         [HttpPut("UpdateAccount/{id}")]
-        public async Task<ActionResult<Response<Account>>> UpdateAccountById(AccountEditDTO editedAccount)
+        public async Task<ActionResult<Response<Account>>> UpdateAccountById(AccountDTO editedAccount)
         {
             return Ok(await _accountService.UpdateAccountByIdAsync(editedAccount));
         }

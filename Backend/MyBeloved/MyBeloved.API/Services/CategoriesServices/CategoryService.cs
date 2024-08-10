@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBeloved.API.DataContext;
-using MyBeloved.API.DTOs.Categories;
+using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
 using MyBeloved.API.Validation;
 using System.Security.Principal;
@@ -125,7 +125,7 @@ namespace MyBeloved.API.Services.CategoriesServices
             return response;
         }
 
-        public async Task<Response<Category>> UpdateCategoryById(CategoryEditDTO editedCategory)
+        public async Task<Response<Category>> UpdateCategoryById(CategoryDTO editedCategory)
         {
             Response<Category> response = new Response<Category>();
 
