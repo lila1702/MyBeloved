@@ -6,5 +6,6 @@ public class Category
     public string Title { get; set; }
     public string? Description { get; set; }
 
-    public ICollection<Notebook>? Notebooks { get; set; } = new List<Notebook>();
+     // Many-to-Many Relationship Join Table
+    public ICollection<NotebookCategory> NotebookCategories { get; set; } = new List<NotebookCategory>();
 }
