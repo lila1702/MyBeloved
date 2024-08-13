@@ -197,6 +197,23 @@ namespace MyBeloved.API.Services.NotebooksServices
             return response;
         }
 
+        public async Task<Response<List<Notebook>>> RemoveCategoryFromNotebookById(int categoryId)
+        {
+            Response<List<Notebook>> response = new Response<List<Notebook>>();
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return response;
+        }
+
         // UpdateNotebook()
         // AddCategoryToNotebook()
         // RemoveCategoryFromNotebook()
