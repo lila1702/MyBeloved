@@ -25,7 +25,7 @@ namespace MyBeloved.API.Services.CategoriesServices
             {
                 if (newCategory == null)
                 {
-                    response.Message = "Account is null";
+                    response.Message = "Category is null";
                     response.Success = false;
                     return response;
                 }

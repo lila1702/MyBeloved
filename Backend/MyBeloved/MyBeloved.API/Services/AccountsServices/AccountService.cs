@@ -88,11 +88,12 @@ namespace MyBeloved.API.Services.AccountsServices
 
             try
             {
-                Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+                Account account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
 
-                response = _validation.CheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 

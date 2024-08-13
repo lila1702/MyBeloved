@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBeloved.API.DataContext;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MyBeloved.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240813001312_v0006")]
+    partial class v0006
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace MyBeloved.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Category", b =>
@@ -74,7 +77,7 @@ namespace MyBeloved.API.Migrations
 
                     b.HasIndex("NotebookId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Notebook", b =>
@@ -92,7 +95,7 @@ namespace MyBeloved.API.Migrations
 
                     b.HasIndex("MadeById");
 
-                    b.ToTable("Notebooks", (string)null);
+                    b.ToTable("Notebooks");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Page", b =>
@@ -118,7 +121,7 @@ namespace MyBeloved.API.Migrations
 
                     b.HasIndex("NotebookId");
 
-                    b.ToTable("Pages", (string)null);
+                    b.ToTable("Pages");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Partner", b =>
@@ -146,7 +149,7 @@ namespace MyBeloved.API.Migrations
 
                     b.HasIndex("UserAccountId");
 
-                    b.ToTable("Partners", (string)null);
+                    b.ToTable("Partners");
                 });
 
             modelBuilder.Entity("MyBeloved.API.Models.Category", b =>

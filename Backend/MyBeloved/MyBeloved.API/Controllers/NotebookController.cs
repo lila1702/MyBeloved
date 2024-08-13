@@ -17,9 +17,9 @@ namespace MyBeloved.API.Controllers
         }
 
         [HttpPost("CreateNotebook")]
-        public async Task<ActionResult<Response<Notebook>>> CreateNotebook(NotebookDTO newNotebook)
+        public async Task<ActionResult<Response<Notebook>>> CreateNotebook(int madeById)
         {
-            return Ok(await _notebookService.CreateNotebook(newNotebook));
+            return Ok(await _notebookService.CreateNotebook(madeById));
         }
 
         [HttpDelete("DeleteNotebookById/{id}")]
@@ -46,6 +46,11 @@ namespace MyBeloved.API.Controllers
             return Ok(await _notebookService.GetAllNotebooks());
         }
 
+        [HttpPatch("AddCategoryToNotebook")]
+        public async Task<ActionResult<Response<Notebook>>> AddCategoryToNotebook(int notebookId, int categoryId)
+        {
+            return Ok(await _notebookService.AddCategoryToNotebook(notebookId, categoryId));
+        }
         //[HttpPut("UpdateNotebook")]
 
     }

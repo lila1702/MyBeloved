@@ -9,8 +9,9 @@ public class Notebook
 
     // Navigation Properties
     public Account MadeBy { get; set; }
-    public ICollection<Page> Pages { get; set; } = new List<Page>();
+    public List<Category> Categories { get; } = new List<Category>();
+    public List<Page> Pages { get; } = new List<Page>();
 
     // Many-to-Many Relationship Join Table
-    public ICollection<NotebookCategory> NotebookCategories { get; set; } = new List<NotebookCategory>();
+    //public ICollection<NotebookCategory> NotebookCategories { get; set; } = new List<NotebookCategory>();
 }
