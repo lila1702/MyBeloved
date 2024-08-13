@@ -1,6 +1,5 @@
 # ⚠️ ATTENTION ⚠️ THIS PAGE IS IN WORK IN PROGRESS❗
-<!--<img src="./src/img/MyBeloved-Logo.svg"/>-->
-# MyBeloved ❤️
+<img src="./Frontend/src/img/MyBeloved-Logo.svg"/>
 
 MyBeloved is a web application where you can create notebooks that will have prompts for things you should write to your beloved partner as a romantic gesture, and when you finish it, you can share it with them, and they'll be able to read one page per day, depending on how they're feeling that day, and the prompt the page was made for ❤️
 

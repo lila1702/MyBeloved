@@ -12,6 +12,5 @@ namespace MyBeloved.API.DataContext
         public DbSet<Notebook> Notebooks { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Page> Pages { get; set; }
-
     }
 }

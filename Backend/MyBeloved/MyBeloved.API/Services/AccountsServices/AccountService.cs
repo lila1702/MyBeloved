@@ -1,24 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBeloved.API.DataContext;
-using MyBeloved.API.DTOs.Account;
+using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
-using MyBeloved.API.Validation;
 
 namespace MyBeloved.API.Services.AccountsServices
 {
     public class AccountService : IAccountService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ValidationEmptyOrNull<Account> _validation = new ValidationEmptyOrNull<Account>();
 
         public AccountService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Response<Account>> CreateAccountAsync(AccountDTO newAccount)
+        public async Task<Response<Account>> CreateAccountAsync(string nickname, string email)
         {
             Response<Account> response = new Response<Account>();
+            AccountDTO newAccount = new AccountDTO
+            {
+                NickName = nickname,
+                Email = email
+            };
 
             try
             {
@@ -56,16 +59,17 @@ namespace MyBeloved.API.Services.AccountsServices
             {
                 Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
-                response = _validation.MultipleCheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 
                 _context.Accounts.Remove(account);
                 await _context.SaveChangesAsync();
 
-                response.Data = _context.Accounts.ToList();
+                response.Data = _context.Accounts.OrderBy(a => a.Id).ToList();
 
             }
             catch (Exception ex)
@@ -83,11 +87,12 @@ namespace MyBeloved.API.Services.AccountsServices
 
             try
             {
-                Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
+                Account account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
 
-                response = _validation.CheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 
@@ -102,7 +107,7 @@ namespace MyBeloved.API.Services.AccountsServices
             return response;
         }
 
-        public async Task<Response<Account>> UpdateAccountByIdAsync(AccountEditDTO editedAccount)
+        public async Task<Response<Account>> UpdateAccountByIdAsync(AccountDTO editedAccount)
         {
             Response<Account> response = new Response<Account>();
 
@@ -141,7 +146,7 @@ namespace MyBeloved.API.Services.AccountsServices
 
             try
             {
-                response.Data = _context.Accounts.ToList();
+                response.Data = _context.Accounts.OrderBy(a => a.Id).ToList();
 
                 if (response.Data.Count() == 0)
                 {
@@ -165,9 +170,10 @@ namespace MyBeloved.API.Services.AccountsServices
             {
                 Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
-                response = _validation.CheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyBeloved.API.DTOs.Categories;
+using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
 using MyBeloved.API.Services.CategoriesServices;
 
@@ -41,7 +41,7 @@ namespace MyBeloved.API.Controllers
         }
 
         [HttpPut("UpdateCategory/{id}")]
-        public async Task<ActionResult<Response<Category>>> UpdateCategoryById(CategoryEditDTO editedCategory)
+        public async Task<ActionResult<Response<Category>>> UpdateCategoryById(CategoryDTO editedCategory)
         {
             return Ok(await _categoryService.UpdateCategoryById(editedCategory));
         }

@@ -1,10 +1,14 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MyBeloved.API.Models;
 
 public class Notebook
 {
     public int Id { get; set; }
-    public Account MadeBy { get; set; }
+    public int MadeById { get; set; }
 
-    public ICollection<Category> Category { get; set; } = new List<Category>();
-    public ICollection<Page>? Pages { get; set; } = new List<Page>();
+    // Navigation Properties
+    public Account MadeBy { get; set; }
+    public List<Category> Categories { get; } = new List<Category>();
+    public List<Page> Pages { get; } = new List<Page>();
 }

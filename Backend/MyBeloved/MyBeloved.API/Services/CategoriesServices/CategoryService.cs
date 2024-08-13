@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBeloved.API.DataContext;
-using MyBeloved.API.DTOs.Categories;
+using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
-using MyBeloved.API.Validation;
-using System.Security.Principal;
 
 namespace MyBeloved.API.Services.CategoriesServices
 {
     public class CategoryService : ICategoryService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ValidationEmptyOrNull<Category> _validation = new ValidationEmptyOrNull<Category>();
 
         public CategoryService(ApplicationDbContext context)
         {
@@ -25,7 +22,7 @@ namespace MyBeloved.API.Services.CategoriesServices
             {
                 if (newCategory == null)
                 {
-                    response.Message = "Account is null";
+                    response.Message = "Category is null";
                     response.Success = false;
                     return response;
                 }
@@ -57,9 +54,10 @@ namespace MyBeloved.API.Services.CategoriesServices
             {
                 Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
 
-                response = _validation.MultipleCheckIfNullOrEmpty(category);
-                if (!response.Success)
+                if (category == null)
                 {
+                    response.Message = "Category not found";
+                    response.Success = false;
                     return response;
                 }
 
@@ -86,9 +84,10 @@ namespace MyBeloved.API.Services.CategoriesServices
             {
                 Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
 
-                response = _validation.CheckIfNullOrEmpty(category);
-                if (!response.Success)
+                if (category == null)
                 {
+                    response.Message = "Category not found";
+                    response.Success = false;
                     return response;
                 }
 
@@ -125,7 +124,7 @@ namespace MyBeloved.API.Services.CategoriesServices
             return response;
         }
 
-        public async Task<Response<Category>> UpdateCategoryById(CategoryEditDTO editedCategory)
+        public async Task<Response<Category>> UpdateCategoryById(CategoryDTO editedCategory)
         {
             Response<Category> response = new Response<Category>();
 
