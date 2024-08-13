@@ -1,4 +1,4 @@
-# ⚠️ ATTENTION❗ THIS PAGE IS IN WORK IN PROGRESS ⚠️
+# ⚠️ ATTENTION: THIS PAGE IS IN WORK IN PROGRESS ⚠️
 <!--<img src="./src/img/MyBeloved-Logo.svg"/>-->
 # MyBeloved ❤️
 
