@@ -11,6 +11,6 @@ namespace MyBeloved.API.Services.NotebooksServices
         public Task<Response<List<Notebook>>> GetAllUserNotebooks(int accountId);
         public Task<Response<List<Notebook>>> GetAllNotebooks();
         public Task<Response<Notebook>> AddCategoryToNotebook(int notebookId, int categoryId);
-        //public Task<Response<Notebook>> UpdateNotebook(int id);
+        public Task<Response<Notebook>> RemoveCategoryFromNotebookById(int notebookId, int categoryId);
     }
 }

@@ -51,7 +51,11 @@ namespace MyBeloved.API.Controllers
         {
             return Ok(await _notebookService.AddCategoryToNotebook(notebookId, categoryId));
         }
-        //[HttpPut("UpdateNotebook")]
 
+        [HttpPatch("RemoveCategoryFromNotebook")]
+        public async Task<ActionResult<Response<Notebook>>> RemoveCategoryFromNotebook(int notebookId, int categoryId)
+        {
+            return Ok(await _notebookService.RemoveCategoryFromNotebookById(notebookId, categoryId));
+        }
     }
 }

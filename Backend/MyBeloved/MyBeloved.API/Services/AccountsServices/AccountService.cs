@@ -2,14 +2,12 @@
 using MyBeloved.API.DataContext;
 using MyBeloved.API.DTOs;
 using MyBeloved.API.Models;
-using MyBeloved.API.Validation;
 
 namespace MyBeloved.API.Services.AccountsServices
 {
     public class AccountService : IAccountService
     {
         private readonly ApplicationDbContext _context;
-        private readonly ValidationEmptyOrNull<Account> _validation = new ValidationEmptyOrNull<Account>();
 
         public AccountService(ApplicationDbContext context)
         {
@@ -61,9 +59,10 @@ namespace MyBeloved.API.Services.AccountsServices
             {
                 Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
-                response = _validation.MultipleCheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 
@@ -171,9 +170,10 @@ namespace MyBeloved.API.Services.AccountsServices
             {
                 Account account = _context.Accounts.FirstOrDefault(a => a.Id == id);
 
-                response = _validation.CheckIfNullOrEmpty(account);
-                if (!response.Success)
+                if (account == null)
                 {
+                    response.Message = "Account not found";
+                    response.Success = false;
                     return response;
                 }
 
